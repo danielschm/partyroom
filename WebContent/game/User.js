@@ -1,8 +1,9 @@
 class User extends Player {
-    constructor(props) {
+    constructor(props = {}) {
+        props.sprite = "./game/sprites/player.png";
         super(props);
         this.initializeEventListeners();
-        this.sprite = new Sprite(1601, 2397, "./game/sprites/player.png", this.speed);
+        setTimeout(() => this.setInfected(),1000);
     }
 
     initializeEventListeners() {

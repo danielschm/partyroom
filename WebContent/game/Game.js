@@ -4,6 +4,7 @@ const STEP = INTERVAL / 1000;
 
 class Game {
     constructor(w, h) {
+        this.nextId = 0;
         this.w = w;
         this.h = h;
         this._aPlayers = [];
@@ -17,7 +18,7 @@ class Game {
             this._iInterval = setInterval(() => {
                 try {
                     this.gameLoop();
-                } catch(e) {
+                } catch (e) {
                     this.stop();
                     console.warn("Game stopped due to error");
                     console.error(e);
@@ -42,10 +43,12 @@ class Game {
     gameLoop() {
         this._aPlayers.forEach(e => e.update());
         this.draw();
+        this.corona();
     }
 
     addPlayer(oPlayer) {
         this._aPlayers.push(oPlayer);
+        oPlayer.id = this.getNextId();
     }
 
     addNPCs(i) {
@@ -55,11 +58,41 @@ class Game {
     }
 
     addNPC() {
-        this._aPlayers.push(new NPC(this.w, this.h));
+        const oNPC = new NPC(this.w, this.h);
+        oNPC.id = this.getNextId();
+        this._aPlayers.push(oNPC);
     }
 
     draw() {
         this._oRoom.draw();
         this._aPlayers.forEach(e => e.draw());
+    }
+
+    corona() {
+        this._aPlayers.forEach((e, i, a) => {
+            if (e.infected) {
+               a.forEach(other => {
+                   if (this.isNear(e, other)) {
+                       if (!other.infected) {
+                           other.setInfected();
+                       }
+                   }
+               })
+            }
+        });
+    }
+
+    isNear(playerA, playerB) {
+        if (playerA.id === playerB.id) {
+            return false;
+        }
+        const bXnear = playerA.x-40 <= playerB.x && playerA.x+40 >= playerB.x;
+        const bYnear = playerA.y-40 <= playerB.y && playerA.y+40 >= playerB.y;
+        return bXnear && bYnear;
+    }
+
+    getNextId() {
+        this.nextId++;
+        return this.nextId;
     }
 }

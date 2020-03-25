@@ -28,6 +28,7 @@ class Sprite {
 
         this.image = new Image();
         this.image.src = sprite;
+        this.spriteSrc = sprite;
     }
 
     update(movement, speed) {
@@ -68,5 +69,14 @@ class Sprite {
     draw(x, y, movement, w, h, speed) {
         this.update(movement, speed);
         _oCtx.drawImage(this.image, this.srcX, this.srcY, this.width, this.height, x, y, w || this.width, h || this.height);
+    }
+
+    setSource(src) {
+        this.image.src = src;
+        this.spriteSrc = src;
+    }
+
+    getSource() {
+        return this.spriteSrc;
     }
 }

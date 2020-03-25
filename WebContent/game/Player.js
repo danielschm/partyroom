@@ -1,4 +1,5 @@
 SIZE = 0.8;
+INFECTEDTIME = 10000;
 
 class Player {
     constructor(oProps = {}) {
@@ -13,6 +14,16 @@ class Player {
             down: false
         };
         this.text = undefined;
+        this.infected = false;
+
+        this.textStreak = 0;
+        this.textStreakLength = 150;
+
+        this.infectedTimer = 0;
+
+        const sprite = oProps.sprite || this.getRandomSprite();
+        this.sprite = new Sprite(1601, 2397, sprite, this.speed);
+        this.originSprite = sprite;
     }
 
     draw() {
@@ -52,5 +63,43 @@ class Player {
         if (this.x >= _oGame.w + 80) this.x = -50;
         if (this.y <= -80) this.y = _oGame.h + 50;
         if (this.y >= _oGame.h + 80) this.y = -50;
+
+        this.infectedTimer++;
+        if (this.infectedTimer >= INFECTEDTIME) {
+            this.setHealthy();
+        }
+
+        this.textStreak++;
+        if (this.textStreak === this.textStreakLength) {
+            this.textStreak = 0;
+            this.text = undefined;
+        }
+    }
+
+    setInfected() {
+        this.infected = true;
+        this.sprite.setSource("./game/sprites/infected.png");
+        this.text = "AH I'M INFECTED";
+    }
+
+    setHealthy() {
+        this.infected = false;
+        this.sprite.setSource(this.originSprite);
+        this.infectedTimer = 0;
+    }
+
+    getRandomSprite() {
+        const aSprites = [
+            "./game/sprites/npc.png",
+            "./game/sprites/npc2.png",
+            "./game/sprites/npc3.png",
+            "./game/sprites/npc4.png",
+            "./game/sprites/npc5.png"
+        ];
+        return this.getRandomString(aSprites);
+    }
+
+    getRandomString(a) {
+        return a[parseInt(Math.random() * a.length - 0.001, 10)];
     }
 }

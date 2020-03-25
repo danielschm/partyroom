@@ -1,5 +1,12 @@
+html, body  {
+    margin: 0;
+    padding: 0;
+    background: #33353a;
+}
+
 canvas {
     width: 800px;
     height: 800px;
-    border: 2px red solid;
+    border-right: 1px solid #25272b;
+    border-bottom: 1px solid #25272b;
 }

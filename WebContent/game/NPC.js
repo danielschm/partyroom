@@ -6,7 +6,9 @@ class NPC extends Player {
         this.sprite = new Sprite(1601, 2397, img, this.speed);
         this.speed = 0.8;
         this.streak = 0;
-        this.streakLength = 10;
+        this.streakLength = parseInt(Math.random() * 10, 10) + 50;
+        this.textStreak = 0;
+        this.textStreakLength = 400;
         this.x = Math.random() * gameWidth;
         this.y = Math.random() * gameHeight;
     }
@@ -16,6 +18,11 @@ class NPC extends Player {
         if (this.streak === this.streakLength) {
             this.streak = 0;
             this.randomize();
+        }
+        this.textStreak++;
+        if (this.textStreak === this.textStreakLength) {
+            this.textStreak = 0;
+            this.text = undefined;
         }
         super.update();
     }
@@ -31,7 +38,23 @@ class NPC extends Player {
             this.controls.right = true;
         } else if (i > 0.6) {
             this.controls.left = true;
+        } else if (i > 0.1 && i < 0.2) {
+            this.speed *= Math.random() * 2;
+            if (this.speed < 0.3) this.speed = 1;
+            if (this.speed < 4) this.speed = 1;
+        } else if (i < 0.02) {
+            this.text = this.getRandomText()
         }
+    }
+
+    getRandomText() {
+        const aTexts = [
+            "Suh dude?",
+            "Yo",
+            "Sup, my dude",
+            "How are ya?"
+        ];
+        return aTexts[parseInt(Math.random() * aTexts.length - 0.001, 10)];
     }
 
     initializeControls() {

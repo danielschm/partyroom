@@ -5,7 +5,7 @@ class Room {
     }
 
     draw() {
-        window._oCtx.fillStyle = "#FF0000";
+        window._oCtx.fillStyle = "#33353a";
         window._oCtx.fillRect(0, 0, this.w, this.h);
     }
 }

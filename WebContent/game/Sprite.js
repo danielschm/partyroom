@@ -1,5 +1,5 @@
 class Sprite {
-    constructor(w, h, sprite, speed) {
+    constructor(w, h, sprite) {
         //the with and height of our spritesheet
         this.spriteWidth = w;
         this.spriteHeight = h;
@@ -20,7 +20,7 @@ class Sprite {
         this.curTrack = 3;
         this.frameCount = 4;
 
-        this.frameLength = parseInt( 6 / Math.log(speed+1.5), 10);
+
         this._counter = 0;
 
         this.srcX = 0;
@@ -30,7 +30,13 @@ class Sprite {
         this.image.src = sprite;
     }
 
-    update(movement) {
+    update(movement, speed) {
+        this.frameLength = parseInt( 6 / Math.log(speed+1.5), 10);
+        if (speed < 0.01) {
+            this.frameLength *= 10000;
+            this.curFrame = 3;
+        }
+
         if (this._counter === this.frameLength) {
             this._counter = 0;
         }
@@ -59,8 +65,8 @@ class Sprite {
         this.srcY = this.curTrack * this.height;
     }
 
-    draw(x, y, movement, w, h) {
-        this.update(movement);
+    draw(x, y, movement, w, h, speed) {
+        this.update(movement, speed);
         _oCtx.drawImage(this.image, this.srcX, this.srcY, this.width, this.height, x, y, w || this.width, h || this.height);
     }
 }

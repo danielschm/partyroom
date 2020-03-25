@@ -40,7 +40,23 @@ class User extends Player {
                 case 80: // key P pauses the game
                     window._oGame.toggle();
                     break;
+                case 96:
+                    this.text = this.getRandomText();
+                    break;
             }
         }, false);
+    }
+
+    getRandomText() {
+        const aTexts = [
+            "Stay at home!",
+            "Stay at home!",
+            "Stay at home!",
+            "Guys, GO!",
+            "Not so close!!",
+            "PLEASE!",
+            "Do u even COVID?"
+        ];
+        return aTexts[parseInt(Math.random() * aTexts.length - 0.001, 10)];
     }
 }

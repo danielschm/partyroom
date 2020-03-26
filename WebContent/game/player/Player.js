@@ -63,10 +63,10 @@ class Player {
             this.createSpeechBubble();
         }
 
-        _oCtx.drawImage(this._oSpeechBubble, this.x - 190 * SIZE, this.y - 30 * SIZE, 468 * 0.6 * SIZE, 116 * 0.6 * SIZE);
-        _oCtx.font = "12px Courier";
+        _oCtx.drawImage(this._oSpeechBubble, this.x - 230 * SIZE, this.y - 130 * SIZE, 468 * 0.6 * SIZE, 116 * 0.6 * SIZE);
+        _oCtx.font = "16px Courier";
         _oCtx.fillStyle = "black";
-        _oCtx.fillText(this.text, this.x - 170 * SIZE, this.y - 0 * SIZE);
+        _oCtx.fillText(this.text, this.x - 200 * SIZE, this.y - 100 * SIZE);
     }
 
     createSpeechBubble() {
@@ -85,7 +85,7 @@ class Player {
                 src: "./WebContent/game/sprites/virus.png"
             });
         }
-        this._infectionSprite.draw(this.x + 7, this.y - 20, 50, 36);
+        this._infectionSprite.draw(this.x - 34, this.y - 100, 50, 36);
     }
 
     handleMovement() {
@@ -93,17 +93,18 @@ class Player {
         const x = this.x;
         const y = this.y;
 
+        const multiplicator = 1.3;
         if (this.controls.left) {
-            this.x -= this.speed;
+            this.x -= this.speed * multiplicator;
         }
         if (this.controls.up) {
-            this.y -= this.speed;
+            this.y -= this.speed * multiplicator;
         }
         if (this.controls.right) {
-            this.x += this.speed;
+            this.x += this.speed * multiplicator;
         }
         if (this.controls.down) {
-            this.y += this.speed;
+            this.y += this.speed * multiplicator;
         }
 
         if (this.controls.left || this.controls.right || this.controls.up || this.controls.down)

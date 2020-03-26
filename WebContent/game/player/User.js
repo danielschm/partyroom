@@ -3,7 +3,7 @@ class User extends Player {
         props.sprite = "./WebContent/game/sprites/player.png";
         super(props);
         this.initializeEventListeners();
-        // setTimeout(() => this.setInfected(),1000);
+        setTimeout(() => this.setInfected(),1000);
     }
 
     initializeEventListeners() {

@@ -5,7 +5,7 @@ const INTERVAL = 1000 / FPS;
 const TILESIZE = 40;
 const DEBUG = false;
 const SIZE = 0.8;
-const INFECTEDTIME = 800;
+const INFECTEDTIME = 2000;
 const TEXTTIME = 50;
 const SPEED = 3;
 
@@ -21,7 +21,7 @@ function main() {
         window._oMapEditor.start();
     } else {
         window._oGame = new Game(w,h);
-        window._oGame.addNPCs(7);
+        window._oGame.addNPCs(10);
         window._oGame.addPlayer(new User());
         window._oGame.start();
     }

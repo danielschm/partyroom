@@ -5,7 +5,7 @@ html, body  {
 }
 
 canvas {
-    width: 1600px;
+    width: 800px;
     height: 800px;
     border-right: 1px solid #25272b;
     border-bottom: 1px solid #25272b;

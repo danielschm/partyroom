@@ -1,5 +1,6 @@
 SIZE = 0.8;
-INFECTEDTIME = 10000;
+INFECTEDTIME = 800;
+TEXTTIME = 50;
 
 class Player {
     constructor(oProps = {}) {
@@ -16,20 +17,33 @@ class Player {
         this.text = undefined;
         this.infected = false;
 
-        this.textStreak = 0;
-        this.textStreakLength = 150;
+        this.textTimer = 0;
 
         this.infectedTimer = 0;
 
         const sprite = oProps.sprite || this.getRandomSprite();
-        this.sprite = new Sprite(1601, 2397, sprite, this.speed);
+        this.sprite = new PlayerSprite({
+            w: 1601,
+            h: 2397,
+            src: sprite,
+            speed: this.speed
+        });
         this.originSprite = sprite;
+    }
+
+    update() {
+        this.handleMovement()
+        this.handleInfection();
+        this.handleText();
     }
 
     draw() {
         this.sprite.draw(this.x, this.y, this.controls, 1601 / 20 * SIZE, 2397 / 20 * SIZE, this.speed);
         if (this.text) {
             this.drawText();
+        }
+        if (this.infected) {
+            this.drawInfection();
         }
     }
 
@@ -39,7 +53,7 @@ class Player {
         }
 
         _oCtx.drawImage(this._oSpeechBubble, this.x-190*SIZE, this.y-30*SIZE, 468 * 0.6 * SIZE, 116 * 0.6 * SIZE);
-        _oCtx.font = "20px Courier";
+        _oCtx.font = "12px Courier";
         _oCtx.fillStyle = "black";
         _oCtx.fillText(this.text, this.x-170*SIZE, this.y-0*SIZE);
     }
@@ -49,7 +63,21 @@ class Player {
         this._oSpeechBubble.src = "./game/sprites/speech-bubble.png";
     }
 
-    update() {
+    drawInfection() {
+        if (!this._infectionSprite) {
+            this._infectionSprite = new Sprite({
+                w: 720,
+                h: 100,
+                rows: 1,
+                cols: 6,
+                fps: 150,
+                src: "./game/sprites/virus.png"
+            });
+        }
+        this._infectionSprite.draw(this.x+7, this.y-20, 50,36);
+    }
+
+    handleMovement() {
         if (this.controls.left)
             this.x -= this.speed * STEP * 80;
         if (this.controls.up)
@@ -63,16 +91,24 @@ class Player {
         if (this.x >= _oGame.w + 80) this.x = -50;
         if (this.y <= -80) this.y = _oGame.h + 50;
         if (this.y >= _oGame.h + 80) this.y = -50;
+    }
 
-        this.infectedTimer++;
-        if (this.infectedTimer >= INFECTEDTIME) {
-            this.setHealthy();
+    handleInfection() {
+        if (this.infected) {
+            this.infectedTimer++;
+            if (this.infectedTimer >= INFECTEDTIME) {
+                this.setHealthy();
+            }
         }
+    }
 
-        this.textStreak++;
-        if (this.textStreak === this.textStreakLength) {
-            this.textStreak = 0;
-            this.text = undefined;
+    handleText() {
+        if (this.text) {
+            this.textTimer++;
+            if (this.textTimer >= TEXTTIME) {
+                this.textTimer = 0;
+                this.text = undefined;
+            }
         }
     }
 

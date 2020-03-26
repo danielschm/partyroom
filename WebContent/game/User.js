@@ -50,13 +50,14 @@ class User extends Player {
 
     getRandomText() {
         const aTexts = [
-            "Stay at home!",
-            "Stay at home!",
-            "Stay at home!",
-            "Guys, GO!",
-            "Not so close!!",
-            "PLEASE!",
-            "Do u even COVID?"
+            // "Stay at home!",
+            // "Stay at home!",
+            // "Stay at home!",
+            // "Guys, GO!",
+            // "Not so close!!",
+            // "PLEASE!",
+            // "Do u even COVID?"
+            "Can u play something 4 me?"
         ];
         return aTexts[parseInt(Math.random() * aTexts.length - 0.001, 10)];
     }

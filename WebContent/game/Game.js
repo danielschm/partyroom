@@ -1,11 +1,15 @@
 class Game {
-    constructor(w, h) {
+    constructor(viewW, viewH, w, h, map) {
         this.nextId = 0;
         this.w = w;
         this.h = h;
         this._aPlayers = [];
-        this._oRoom = new Room(this.w, this.h, TILESIZE);
+        this._oRoom = new Room(this.w, this.h, map);
         this._bRunning = false;
+
+        this.viewW = viewW;
+        this.viewH = viewH;
+        this.camera = new Camera(0, 0, this.viewW, this.viewH, w, h);
     }
 
     getCell(x, y) {
@@ -42,13 +46,15 @@ class Game {
 
     gameLoop() {
         this._aPlayers.forEach(e => e.update());
-        this.draw();
+        this.camera.update();
+        this.draw(this.camera.xView, this.camera.yView);
         this.corona();
     }
 
     addPlayer(oPlayer) {
         this._aPlayers.push(oPlayer);
         oPlayer.id = this.getNextId();
+        this.camera.follow(oPlayer, this.viewW / 2, this.viewH / 2);
     }
 
     addNPCs(i) {
@@ -63,9 +69,9 @@ class Game {
         this._aPlayers.push(oNPC);
     }
 
-    draw() {
-        this._oRoom.draw();
-        this._aPlayers.forEach(e => e.draw());
+    draw(xView, yView) {
+        this._oRoom.draw(xView, yView);
+        this._aPlayers.forEach(e => e.draw(xView, yView));
     }
 
     corona() {

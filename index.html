@@ -8,7 +8,10 @@
     <script src="WebContent/game/Game.js"></script>
     <script src="WebContent/game/room/Cell.js"></script>
     <script src="WebContent/game/room/Wall.js"></script>
+    <script src="WebContent/game/room/WindowWall.js"></script>
     <script src="WebContent/game/room/Room.js"></script>
+    <script src="WebContent/game/camera/Rectangle.js"></script>
+    <script src="WebContent/game/camera/Camera.js"></script>
     <script src="WebContent/game/player/Player.js"></script>
     <script src="WebContent/game/sprites/Sprite.js"></script>
     <script src="WebContent/game/player/PlayerSprite.js"></script>
@@ -19,9 +22,10 @@
     <script src="WebContent/game/mapeditor/MapEditor.js"></script>
 </head>
 <body>
-<canvas id="canvas" width="1400" height="900" ></canvas>
+<canvas id="canvas" width="800" height="800" ></canvas>
 <br>
-<button onclick="save()">Save</button>
+<a href="" id="download">Download</a>
+<button id="btnSave" onclick="save()">Save</button>
 <span id="x"></span>
 <span id="y"></span>
 </body>

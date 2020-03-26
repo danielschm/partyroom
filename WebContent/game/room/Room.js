@@ -1,22 +1,25 @@
 class Room {
-    constructor(w, h) {
+    constructor(w, h, map) {
         this.w = w;
         this.h = h;
-        this.grid = this.createGrid();
+        this.grid = this.createGrid(map);
     }
 
-    draw() {
+    draw(xView, yView) {
+        // didactic way ( "s" is for "source" and "d" is for "destination" in the variable names):
+
         window._oCtx.fillStyle = "#33353a";
         window._oCtx.fillRect(0, 0, this.w, this.h);
-        this.drawGrid();
+        this.drawGrid(xView, yView);
     }
 
-    createGrid() {
-        if (localStorage.getItem("grid")) {
-            const grid = JSON.parse(localStorage.getItem("grid"));
-            return grid.map(row => row.map(cell => {
+    createGrid(map) {
+        if (map) {
+            return map.map(row => row.map(cell => {
                 if (cell.state === 1) {
                     return new Wall(cell);
+                } else if (cell.state === 2) {
+                    return new WindowWall(cell);
                 } else {
                     return new Cell(cell);
                 }
@@ -41,9 +44,9 @@ class Room {
         return grid;
     }
 
-    drawGrid() {
+    drawGrid(xView, yView) {
         this.grid.forEach(oCol => {
-            oCol.forEach(oCell => oCell.draw());
+            oCol.forEach(oCell => oCell.draw(xView, yView));
         });
     }
 

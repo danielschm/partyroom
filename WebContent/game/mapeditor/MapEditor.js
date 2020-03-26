@@ -1,12 +1,23 @@
 function save() {
-    localStorage.setItem("grid", JSON.stringify(window._oMapEditor._oRoom.grid));
+    const map = JSON.stringify(window._oMapEditor._oRoom.grid);
+    localStorage.setItem("grid", map);
+
+    if (SAVETOFILE) {
+        const fileName = prompt("Please type in file name:");
+        const myFile = new Blob([map], {type: 'text/plain'});
+
+        window.URL = window.URL || window.webkitURL;
+        document.getElementById('download').setAttribute('href', window.URL.createObjectURL(myFile));
+        document.getElementById('download').setAttribute('download', fileName);
+    }
 }
 
 class MapEditor {
-    constructor(w, h) {
-        this.nextId = 0;
+    constructor(viewW, viewH, w, h, offsetX = 0, offsetY = 0) {
         this.w = w;
         this.h = h;
+        this.offsetX = offsetX;
+        this.offsetY = offsetY;
         this._oRoom = new MapEditorRoom(this.w, this.h, TILESIZE);
         this.initializeEventListener();
     }
@@ -40,7 +51,7 @@ class MapEditor {
     }
 
     draw() {
-        this._oRoom.draw();
+        this._oRoom.draw(this.offsetX, this.offsetY);
     }
 
     initializeEventListener() {
@@ -48,8 +59,8 @@ class MapEditor {
     }
 
     handleClicked(e) {
-        const x = parseInt(e.x / TILESIZE, 10);
-        const y = parseInt(e.y / TILESIZE, 10);
+        const x = parseInt((e.x + this.offsetX) / TILESIZE, 10);
+        const y = parseInt((e.y + this.offsetY) / TILESIZE, 10);
         const oCell = this._oRoom.getCell(x, y);
         if (oCell) oCell.toggleState();
     }

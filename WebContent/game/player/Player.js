@@ -37,18 +37,21 @@ class Player {
     }
 
     update() {
-        this.handleMovement()
+        this.handleMovement();
         this.handleInfection();
         this.handleText();
     }
 
-    draw() {
+    draw(xView, yView) {
+        this.drawnX = this.x - xView;
+        this.drawnY = this.y - yView;
+
         if (DEBUG) {
             _oCtx.fillStyle = "green";
             _oCtx.fillRect(this.position.x * TILESIZE, this.position.y * TILESIZE, TILESIZE, TILESIZE);
         }
 
-        this.sprite.draw(this.x - TILESIZE, this.y - TILESIZE * 2, this.controls, 1601 / 20 * SIZE, 2397 / 20 * SIZE, this.speed);
+        this.sprite.draw(this.drawnX - TILESIZE, this.drawnY - TILESIZE * 2, this.controls, 1601 / 20 * SIZE, 2397 / 20 * SIZE, this.speed);
 
         if (this.text) {
             this.drawText();

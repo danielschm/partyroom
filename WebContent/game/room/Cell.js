@@ -5,8 +5,8 @@ class Cell {
         this.color = color || "#25272b";
     }
     
-    draw() {
+    draw(xView = 0, yView = 0) {
         window._oCtx.fillStyle = this.color;
-        window._oCtx.fillRect(this.x * TILESIZE, this.y * TILESIZE, TILESIZE, TILESIZE);
+        window._oCtx.fillRect(this.x * TILESIZE - Math.floor(xView), this.y * TILESIZE - Math.floor(yView), TILESIZE, TILESIZE);
     }
 }

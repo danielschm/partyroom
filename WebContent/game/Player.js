@@ -60,7 +60,7 @@ class Player {
 
     createSpeechBubble() {
         this._oSpeechBubble = new Image();
-        this._oSpeechBubble.src = "./game/sprites/speech-bubble.png";
+        this._oSpeechBubble.src = "./WebContent/game/sprites/speech-bubble.png";
     }
 
     drawInfection() {
@@ -71,7 +71,7 @@ class Player {
                 rows: 1,
                 cols: 6,
                 fps: 150,
-                src: "./game/sprites/virus.png"
+                src: "./WebContent/game/sprites/virus.png"
             });
         }
         this._infectionSprite.draw(this.x+7, this.y-20, 50,36);
@@ -114,7 +114,7 @@ class Player {
 
     setInfected() {
         this.infected = true;
-        this.sprite.setSource("./game/sprites/infected.png");
+        this.sprite.setSource("./WebContent/game/sprites/infected.png");
         this.text = "AH I'M INFECTED";
     }
 
@@ -126,11 +126,11 @@ class Player {
 
     getRandomSprite() {
         const aSprites = [
-            "./game/sprites/npc.png",
-            "./game/sprites/npc2.png",
-            "./game/sprites/npc3.png",
-            "./game/sprites/npc4.png",
-            "./game/sprites/npc5.png"
+            "./WebContent/game/sprites/npc.png",
+            "./WebContent/game/sprites/npc2.png",
+            "./WebContent/game/sprites/npc3.png",
+            "./WebContent/game/sprites/npc4.png",
+            "./WebContent/game/sprites/npc5.png"
         ];
         return this.getRandomString(aSprites);
     }

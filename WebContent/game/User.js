@@ -1,6 +1,6 @@
 class User extends Player {
     constructor(props = {}) {
-        props.sprite = "./game/sprites/player.png";
+        props.sprite = "./WebContent/game/sprites/player.png";
         super(props);
         this.initializeEventListeners();
         setTimeout(() => this.setInfected(),1000);
@@ -50,14 +50,13 @@ class User extends Player {
 
     getRandomText() {
         const aTexts = [
-            // "Stay at home!",
-            // "Stay at home!",
-            // "Stay at home!",
-            // "Guys, GO!",
-            // "Not so close!!",
-            // "PLEASE!",
-            // "Do u even COVID?"
-            "Can u play something 4 me?"
+            "Stay at home!",
+            "Stay at home!",
+            "Stay at home!",
+            "Guys, GO!",
+            "Not so close!!",
+            "PLEASE!",
+            "Do u even COVID?"
         ];
         return aTexts[parseInt(Math.random() * aTexts.length - 0.001, 10)];
     }

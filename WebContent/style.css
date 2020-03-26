@@ -5,8 +5,8 @@ html, body  {
 }
 
 canvas {
-    width: 800px;
-    height: 800px;
+    width: 1400px;
+    height: 900px;
     border-right: 1px solid #25272b;
     border-bottom: 1px solid #25272b;
 }

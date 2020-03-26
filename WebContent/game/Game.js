@@ -1,15 +1,15 @@
-const FPS = 30;
-const INTERVAL = 1000 / FPS;
-const STEP = INTERVAL / 1000;
-
 class Game {
     constructor(w, h) {
         this.nextId = 0;
         this.w = w;
         this.h = h;
         this._aPlayers = [];
-        this._oRoom = new Room(this.w, this.h);
+        this._oRoom = new Room(this.w, this.h, TILESIZE);
         this._bRunning = false;
+    }
+
+    getCell(x, y) {
+        return this._oRoom.getCell(x, y);
     }
 
     start() {
@@ -71,13 +71,13 @@ class Game {
     corona() {
         this._aPlayers.forEach((e, i, a) => {
             if (e.infected) {
-               a.forEach(other => {
-                   if (this.isNear(e, other)) {
-                       if (!other.infected) {
-                           other.setInfected();
-                       }
-                   }
-               })
+                a.forEach(other => {
+                    if (this.isNear(e, other)) {
+                        if (!other.infected) {
+                            other.setInfected();
+                        }
+                    }
+                })
             }
         });
     }
@@ -86,13 +86,27 @@ class Game {
         if (playerA.id === playerB.id) {
             return false;
         }
-        const bXnear = playerA.x-40 <= playerB.x && playerA.x+40 >= playerB.x;
-        const bYnear = playerA.y-40 <= playerB.y && playerA.y+40 >= playerB.y;
+        const bXnear = playerA.x - 40 <= playerB.x && playerA.x + 40 >= playerB.x;
+        const bYnear = playerA.y - 40 <= playerB.y && playerA.y + 40 >= playerB.y;
         return bXnear && bYnear;
     }
 
     getNextId() {
         this.nextId++;
         return this.nextId;
+    }
+
+    getValidCells() {
+        if (!this.validCells) {
+            let aValidCells = [];
+            _oGame._oRoom.grid.forEach(row => {
+                const a = row.filter(e => {
+                    return !(e instanceof Wall) && e.y < 18;
+                });
+                aValidCells = aValidCells.concat(a);
+            });
+            this.validCells = aValidCells;
+        }
+        return this.validCells;
     }
 }

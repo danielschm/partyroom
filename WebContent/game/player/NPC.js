@@ -1,13 +1,21 @@
 class NPC extends Player {
-    constructor(gameWidth, gameHeight) {
+    constructor() {
         super();
         this.initializeControls();
         this.speed = 0.8;
         this.streak = 0;
         this.streakLength = parseInt(Math.random() * 10, 10) + 50;
 
-        this.x = Math.random() * gameWidth;
-        this.y = Math.random() * gameHeight;
+        this.position = this.findRandomPosition();
+        this.x = this.position.x * TILESIZE;
+        this.y = this.position.y * TILESIZE
+    }
+
+    findRandomPosition() {
+        const aValidCells = _oGame.getValidCells();
+        const iIndex = parseInt(Math.random() * aValidCells.length, 10);
+        const {x, y} = aValidCells[iIndex];
+        return {x, y};
     }
 
     update() {

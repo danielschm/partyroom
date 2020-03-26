@@ -6,14 +6,23 @@
     <link href="WebContent/style.css" rel="stylesheet"/>
     <script src="WebContent/index.js"></script>
     <script src="WebContent/game/Game.js"></script>
-    <script src="WebContent/game/Room.js"></script>
-    <script src="WebContent/game/Player.js"></script>
-    <script src="WebContent/game/Sprite.js"></script>
+    <script src="WebContent/game/room/Cell.js"></script>
+    <script src="WebContent/game/room/Wall.js"></script>
+    <script src="WebContent/game/room/Room.js"></script>
+    <script src="WebContent/game/player/Player.js"></script>
+    <script src="WebContent/game/sprites/Sprite.js"></script>
     <script src="WebContent/game/PlayerSprite.js"></script>
-    <script src="WebContent/game/User.js"></script>
-    <script src="WebContent/game/NPC.js"></script>
+    <script src="WebContent/game/player/User.js"></script>
+    <script src="WebContent/game/player/NPC.js"></script>
+    <script src="WebContent/game/mapeditor/MapEditorCell.js"></script>
+    <script src="WebContent/game/mapeditor/MapEditorRoom.js"></script>
+    <script src="WebContent/game/mapeditor/MapEditor.js"></script>
 </head>
 <body>
-<canvas id="canvas" width="800" height="800" ></canvas>
+<canvas id="canvas" width="1400" height="900" ></canvas>
+<br>
+<button onclick="save()">Save</button>
+<span id="x"></span>
+<span id="y"></span>
 </body>
 </html>

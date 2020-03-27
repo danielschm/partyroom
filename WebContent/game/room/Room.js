@@ -3,14 +3,15 @@ class Room {
         this.w = w;
         this.h = h;
         this.grid = this.createGrid(map);
+        this._cells = this.getCells();
     }
 
-    draw(xView, yView) {
-        // didactic way ( "s" is for "source" and "d" is for "destination" in the variable names):
-
+    drawBackground(xView, yView) {
         window._oCtx.fillStyle = "#33353a";
         window._oCtx.fillRect(0, 0, this.w, this.h);
-        this.drawGrid(xView, yView);
+        this._cells
+            .filter(e => e instanceof Wall)
+            .forEach(e => e.drawFoundation(xView, yView));
     }
 
     createGrid(map) {
@@ -20,34 +21,35 @@ class Room {
                     return new Wall(cell);
                 } else if (cell.state === 2) {
                     return new WindowWall(cell);
+                } else if (cell.state === 4) {
+                    return new OutsideWall(cell);
                 } else {
-                    return new Cell(cell);
+                    return new Floor(cell)
                 }
             }));
+        } else {
+            throw new Error("No map defined");
         }
-
-        const cols = this.w / TILESIZE;
-        const rows = this.h / TILESIZE;
-        const grid = [];
-
-        for (let iCol = 0; iCol < cols; iCol++) {
-            const aRow = [];
-            for (let iRow = 0; iRow < rows; iRow++) {
-                if (Math.random() > 0.1)
-                    aRow.push(new Cell({x: iCol, y: iRow}));
-                else
-                    aRow.push(new Wall({x: iCol, y: iRow}));
-            }
-            grid.push(aRow);
-        }
-
-        return grid;
     }
 
-    drawGrid(xView, yView) {
-        this.grid.forEach(oCol => {
-            oCol.forEach(oCell => oCell.draw(xView, yView));
-        });
+    getCells() {
+        const aCells = [];
+        this.grid.forEach(row => row.forEach(e => aCells.push(e)));
+        return aCells;
+
+        // const aFloor =[], aWall = [], aOther = [];
+        // this.grid.forEach(row => {
+        //     row.forEach(cell => {
+        //         if (cell instanceof Floor) aFloor.push(cell);
+        //         else if (cell instanceof Wall) aWall.push(cell);
+        //         else aOther.push(cell);
+        //     })
+        // });
+        // return {
+        //     floor: aFloor,
+        //     wall: aWall,
+        //     other: aOther
+        // };
     }
 
     getCell(x, y) {

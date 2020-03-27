@@ -4,11 +4,19 @@ class User extends Player {
         super(props);
         this.initializeEventListeners();
         // setTimeout(() => this.setInfected(),1000);
-
+        this.speed = 10;
     }
 
     update() {
         super.update();
+    }
+
+    draw(xView, yView) {
+        if (DEBUG) {
+            _oCtx.fillStyle = "green";
+            _oCtx.fillRect(this.position.x * TILESIZE - xView, this.position.y * TILESIZE - yView, TILESIZE, TILESIZE);
+        }
+        super.draw(xView, yView);
     }
 
     initializeEventListeners() {

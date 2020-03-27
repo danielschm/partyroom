@@ -62,6 +62,19 @@ class MapEditor {
         const x = parseInt((e.x + this.offsetX) / TILESIZE, 10);
         const y = parseInt((e.y + this.offsetY) / TILESIZE, 10);
         const oCell = this._oRoom.getCell(x, y);
-        if (oCell) oCell.toggleState();
+        if (oCell) {
+            switch (e.button) {
+                case 1:
+                    oCell.toggleState();
+                    break;
+                case 0:
+                    oCell.setOutsideWall();
+                    break;
+                case 2:
+                    oCell.setFloor();
+                    break;
+            }
+
+        }
     }
 }

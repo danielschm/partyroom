@@ -66,12 +66,34 @@ class Game {
     addNPC() {
         const oNPC = new NPC(this.w, this.h);
         oNPC.id = this.getNextId();
+        oNPC.name = this.getName(oNPC.id);
         this._aPlayers.push(oNPC);
     }
 
     draw(xView, yView) {
-        this._oRoom.draw(xView, yView);
-        this._aPlayers.forEach(e => e.draw(xView, yView));
+        this._oRoom.drawBackground(xView, yView);
+
+        let aObjects = this._oRoom.getCells();
+        aObjects = aObjects.concat(this._aPlayers);
+
+        aObjects.sort((a, b) => {
+            const y1 = a instanceof Player ? a.position.y : a.y;
+            const y2 = b instanceof Player ? b.position.y : b.y;
+            return y1 - y2;
+        });
+
+        aObjects.sort((a, b) => {
+            const x1 = a instanceof Player ? a.position.x : a.x;
+            const x2 = b instanceof Player ? b.position.x : b.x;
+            const y1 = a instanceof Player ? a.position.y : a.y;
+            const y2 = b instanceof Player ? b.position.y : b.y;
+            if (y1 === y2) {
+                return x2 - x1;
+            }
+        });
+
+
+        aObjects.forEach(e => e.draw(xView, yView));
     }
 
     corona() {
@@ -114,5 +136,46 @@ class Game {
             this.validCells = aValidCells;
         }
         return this.validCells;
+    }
+
+    getName(i) {
+        const a = [
+            "Steve",
+            "Rick",
+            "Pat",
+            "Oli",
+            "Jay",
+            "Erik",
+            "Dave",
+            "Alan",
+            "Bob",
+            "Will",
+            "George",
+            "Greg",
+            "Stephen",
+            "Randy",
+            "Rudolf",
+            "Tom",
+            "Luke",
+            "Ringo"
+        ];
+        return a.concat(a).concat(a)[i];
+
+        return [
+            "Timo",
+            "Jeroen",
+            "Sascha",
+            "PJ",
+            "Patrick",
+            "Martin",
+            "Tobi",
+            "Sven",
+            "Robin",
+            "Niko",
+            "Chris",
+            "Basti",
+            "Enes",
+            "Stefan"
+        ][i];
     }
 }

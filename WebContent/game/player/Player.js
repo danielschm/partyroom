@@ -1,8 +1,10 @@
 class Player {
     constructor(oProps = {}) {
         this.color = oProps.color || "#000";
-        this.x = oProps.x || 200;
-        this.y = oProps.y || 200;
+        this.x = oProps.x || 700;
+        this.y = oProps.y || 900;
+
+        this.name = oProps.name;
 
         this.position = {
             x: parseInt(this.x / TILESIZE, 10),
@@ -46,30 +48,36 @@ class Player {
         this.drawnX = this.x - xView;
         this.drawnY = this.y - yView;
 
-        if (DEBUG) {
-            _oCtx.fillStyle = "green";
-            _oCtx.fillRect(this.position.x * TILESIZE, this.position.y * TILESIZE, TILESIZE, TILESIZE);
+        this.sprite.draw(this.drawnX - TILESIZE * 0.6, this.drawnY - TILESIZE * 1.3, this.controls, 1601 / 20 * SIZE, 2397 / 20 * SIZE, this.speed);
+
+        if (this.name) {
+            this.drawName();
         }
 
-        this.sprite.draw(this.drawnX - TILESIZE, this.drawnY - TILESIZE * 2, this.controls, 1601 / 20 * SIZE, 2397 / 20 * SIZE, this.speed);
-
         if (this.text) {
-            this.drawText();
+            this.drawText(this.text);
         }
         if (this.infected) {
             this.drawInfection();
         }
     }
 
-    drawText() {
+    drawName() {
+        _oCtx.textAlign = "center";
+        _oCtx.font = "16px Arial";
+        _oCtx.fillStyle = "white";
+        _oCtx.fillText(this.name, this.drawnX - 5, this.drawnY - 65);
+    }
+
+    drawText(text) {
         if (!this._oSpeechBubble) {
             this.createSpeechBubble();
         }
 
-        _oCtx.drawImage(this._oSpeechBubble, this.x - 230 * SIZE, this.y - 130 * SIZE, 468 * 0.6 * SIZE, 116 * 0.6 * SIZE);
+        _oCtx.drawImage(this._oSpeechBubble, this.drawnX - 230 * SIZE, this.drawnY - 130 * SIZE, 468 * 0.6 * SIZE, 116 * 0.6 * SIZE);
         _oCtx.font = "16px Courier";
         _oCtx.fillStyle = "black";
-        _oCtx.fillText(this.text, this.x - 200 * SIZE, this.y - 100 * SIZE);
+        _oCtx.fillText(text, this.drawnX - 200 * SIZE, this.drawnY - 100 * SIZE);
     }
 
     createSpeechBubble() {

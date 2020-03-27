@@ -6,6 +6,7 @@ class MapEditorRoom extends Room {
         if (localStorage.getItem("grid")) {
             const map = JSON.parse(localStorage.getItem("grid"));
             const grid = map.map(row => row.map(cell => new MapEditorCell(cell)));
+
             if (grid.length < cols || grid[0].length < rows) {
                 for (let iCol = grid.length; iCol < cols; iCol++) {
                     const aRow = [];
@@ -15,6 +16,7 @@ class MapEditorRoom extends Room {
                     grid.push(aRow);
                 }
             }
+
             return grid;
         }
 
@@ -29,5 +31,11 @@ class MapEditorRoom extends Room {
         }
 
         return grid;
+    }
+
+    draw(viewX, viewY) {
+        this.grid.forEach(rows => {
+           rows.forEach(e => e.draw(viewX, viewY));
+        });
     }
 }

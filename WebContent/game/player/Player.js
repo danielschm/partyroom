@@ -1,8 +1,8 @@
 class Player {
     constructor(oProps = {}) {
         this.color = oProps.color || "#000";
-        this.x = oProps.x || 700;
-        this.y = oProps.y || 900;
+        this.x = oProps.x || 600;
+        this.y = oProps.y || 300;
 
         this.name = oProps.name;
 

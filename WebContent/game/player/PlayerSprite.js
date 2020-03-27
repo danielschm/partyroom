@@ -14,7 +14,7 @@ class PlayerSprite extends Sprite {
     }
 
     update(movement, speed) {
-        this.frameLength = parseInt(6 / Math.log(speed + 1), 10);
+        this.frameLength = parseInt(6 / Math.log(speed / 2 + 2), 10);
         if (speed < 0.01) {
             this.frameLength *= 10000;
             this.curFrame = 3;

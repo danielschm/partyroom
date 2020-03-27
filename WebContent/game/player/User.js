@@ -4,7 +4,7 @@ class User extends Player {
         super(props);
         this.initializeEventListeners();
         // setTimeout(() => this.setInfected(),1000);
-        this.speed = 10;
+        this.speed = 4;
     }
 
     update() {

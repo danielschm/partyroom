@@ -126,7 +126,7 @@ class Player {
 
     evaluateCollision(oOldProps) {
         const oCell = _oGame.getCell(this.position.x, this.position.y);
-        const bCollision = oCell instanceof Wall;
+        const bCollision = !oCell || oCell instanceof Wall;
         if (bCollision) {
             if (oCell.x !== oOldProps.oPosition.x) {
                 this.x = oOldProps.x;

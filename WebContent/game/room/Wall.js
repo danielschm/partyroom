@@ -2,6 +2,7 @@ class Wall extends Cell {
     constructor(props) {
         super(props);
         this.wallColor = "rgb(46,50,56)";
+        this.wallColorVertical = "rgb(41,45,50)";
         this.roofColor = "rgb(35,38,42)";
         this.foundColor = "rgb(71,75,83)";
         this.xOffset = TILESIZE * 0.15;
@@ -42,8 +43,9 @@ class Wall extends Cell {
         window._oCtx.fillStyle = this.wallColor;
         this.drawWallHorizontal(xDrawn, yDrawn, xOffset, yOffset);
         this.drawWallHorizontal(xDrawn, yDrawn + TILESIZE, xOffset, yOffset);
-        this.drawWallVertical(xDrawn, yDrawn, xOffset, yOffset);
         this.drawWallVertical(xDrawn + TILESIZE, yDrawn, xOffset, yOffset);
+        window._oCtx.fillStyle = this.wallColorVertical;
+        this.drawWallVertical(xDrawn, yDrawn, xOffset, yOffset);
     }
 
     drawWallHorizontal(xDrawn, yDrawn, xOffset, yOffset) {

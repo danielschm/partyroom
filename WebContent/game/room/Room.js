@@ -53,6 +53,7 @@ class Room {
     }
 
     getCell(x, y) {
-        return this.grid[x][y];
+        const aRow = this.grid[x];
+        return aRow ? aRow[y] : undefined;
     }
 }

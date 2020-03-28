@@ -43,7 +43,6 @@ class Wall extends Cell {
         window._oCtx.fillStyle = this.wallColor;
         this.drawWallHorizontal(xDrawn, yDrawn, xOffset, yOffset);
         this.drawWallHorizontal(xDrawn, yDrawn + TILESIZE, xOffset, yOffset);
-        this.drawWallVertical(xDrawn + TILESIZE, yDrawn, xOffset, yOffset);
         window._oCtx.fillStyle = this.wallColorVertical;
         this.drawWallVertical(xDrawn, yDrawn, xOffset, yOffset);
     }

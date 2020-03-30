@@ -54,6 +54,9 @@ class User extends Player {
                 case 80: // key P pauses the game
                     window._oGame.toggle();
                     break;
+                case 86: // key P pauses the game
+                    this.setInfected();
+                    break;
                 case 96:
                     this.text = this.getRandomText();
                     break;

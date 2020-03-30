@@ -58,7 +58,7 @@ class Player {
             this.drawText(this.text);
         }
         if (this.infected) {
-            this.drawInfection();
+            this.drawInfection(xView, yView);
         }
     }
 
@@ -77,7 +77,7 @@ class Player {
         _oCtx.drawImage(this._oSpeechBubble, this.drawnX - 230 * SIZE, this.drawnY - 130 * SIZE, 468 * 0.6 * SIZE, 116 * 0.6 * SIZE);
         _oCtx.font = "16px Courier";
         _oCtx.fillStyle = "black";
-        _oCtx.fillText(text, this.drawnX - 200 * SIZE, this.drawnY - 100 * SIZE);
+        _oCtx.fillText(text, this.drawnX - 120 * SIZE, this.drawnY - 100 * SIZE);
     }
 
     createSpeechBubble() {
@@ -85,7 +85,7 @@ class Player {
         this._oSpeechBubble.src = "./WebContent/game/sprites/speech-bubble.png";
     }
 
-    drawInfection() {
+    drawInfection(xView, yView) {
         if (!this._infectionSprite) {
             this._infectionSprite = new Sprite({
                 w: 720,
@@ -96,7 +96,7 @@ class Player {
                 src: "./WebContent/game/sprites/virus.png"
             });
         }
-        this._infectionSprite.draw(this.x - 34, this.y - 100, 50, 36);
+        this._infectionSprite.draw(this.x - 30 - xView, this.y - 100 - yView, 50, 36);
     }
 
     handleMovement() {

@@ -139,27 +139,27 @@ class Game {
     }
 
     getName(i) {
-        const a = [
-            "Steve",
-            "Rick",
-            "Pat",
-            "Oli",
-            "Jay",
-            "Erik",
-            "Dave",
-            "Alan",
-            "Bob",
-            "Will",
-            "George",
-            "Greg",
-            "Stephen",
-            "Randy",
-            "Rudolf",
-            "Tom",
-            "Luke",
-            "Ringo"
-        ];
-        return a.concat(a).concat(a)[i];
+        // const a = [
+        //     "Steve",
+        //     "Rick",
+        //     "Pat",
+        //     "Oli",
+        //     "Jay",
+        //     "Erik",
+        //     "Dave",
+        //     "Alan",
+        //     "Bob",
+        //     "Will",
+        //     "George",
+        //     "Greg",
+        //     "Stephen",
+        //     "Randy",
+        //     "Rudolf",
+        //     "Tom",
+        //     "Luke",
+        //     "Ringo"
+        // ];
+        // return a.concat(a).concat(a)[i];
 
         return [
             "Timo",

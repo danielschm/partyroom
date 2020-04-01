@@ -29,7 +29,7 @@ function main() {
         const viewH = 800;
         document.getElementById("btnSave").style.display = "none";
         window._oGame = new Game(viewW, viewH, w, h, getMap());
-        window._oGame.addNPCs(80);
+        window._oGame.addNPCs(15);
         window._oGame.addPlayer(new User());
         window._oGame.start();
     }

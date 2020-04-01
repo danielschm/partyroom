@@ -13,7 +13,12 @@ class Game {
     }
 
     getCell(x, y) {
-        return this._oRoom.getCell(x, y);
+        const oCell = this._oRoom.getCell(x, y);
+        if (oCell) {
+            return oCell;
+        } else {
+            throw new Error("Cell not found");
+        }
     }
 
     start() {

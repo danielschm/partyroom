@@ -120,29 +120,33 @@ class Player {
 
         if (this.controls.left || this.controls.right || this.controls.up || this.controls.down)
             if (this.evaluateMovement(oPosition))
-                this.evaluateCollision({x, y, oPosition});
+                this.evaluateCollision({x, y, position: oPosition});
         this.handleBorderReset();
     }
 
     evaluateCollision(oOldProps) {
-        const oCell = _oGame.getCell(this.position.x, this.position.y);
-        if (!oCell) {
+        let oNewXCell, oNewYCell;
+        try {
+            oNewXCell = _oGame.getCell(this.position.x, oOldProps.position.y);
+            oNewYCell = _oGame.getCell(oOldProps.position.x, this.position.y);
+        } catch (e) {
             this.x = oOldProps.x;
             this.y = oOldProps.y;
-            this.position = oOldProps.oPosition;
+            this.position = oOldProps.position;
+            return;
         }
 
-        const bCollision = oCell instanceof Wall;
-        if (bCollision) {
-            if (oCell.x !== oOldProps.oPosition.x) {
-                this.x = oOldProps.x;
-                this.position.x = oOldProps.oPosition.x;
-            }
-            if (oCell.y !== oOldProps.oPosition.y) {
-                this.y = oOldProps.y;
-                this.position.y = oOldProps.oPosition.y;
-            }
+        const bXCollision = oNewXCell instanceof Wall;
+        const bYCollision = oNewYCell instanceof Wall;
 
+        if (bXCollision) {
+            this.x = oOldProps.x;
+            this.position.x = oOldProps.position.x;
+        }
+
+        if (bYCollision) {
+            this.y = oOldProps.y;
+            this.position.y = oOldProps.position.y;
         }
     }
 
